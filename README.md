@@ -21,4 +21,4 @@ data = np.array(data)
 pd.DataFrame(data).to_csv("synergistic_interaction_example.csv")
 ```
 
-Note: A python-based toolbox for effeciently creating networks with synergistic interactions, finding synergistic associations in data using O-information and SRVs, and creating subsequent hypergrapgs is currently in progress. Once released, a link wil be provided here. 
+Note: A python-based toolbox for effeciently creating networks with synergistic interactions, finding synergistic associations in data using O-information and SRVs, and creating subsequent hypergraphs is currently in progress. Once released, a link wil be provided here. 
