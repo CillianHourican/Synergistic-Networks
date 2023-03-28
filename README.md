@@ -1,4 +1,4 @@
-# Dynamic Symptom Networks
+# Networks with Synergistic Interactions
 
 This GitHub repository contains the code for the paper "Understanding multimorbidity requires sign-disease networks and higher-order interactions, a perspective. " by Cillian Hourican, Geeske Peeters, René Melis, Thomas M. Gill, Marcel Olde Rikkert, Rick Quax.
 [link and doi to be provided]
