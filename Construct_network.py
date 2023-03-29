@@ -7,29 +7,29 @@ Created on Mon Mar 27 12:34:45 2023
 import numpy as np
 import pickle
 import pandas as pd
-from JointProbabilityMatrix import JointProbabilityMatrix
-import toy_functions as tf
-from toy_symptom_model import generate_OR_transitions_table
+import itertools
+from jointpdf.JointProbabilityMatrix import JointProbabilityMatrix
+import jointpdf.toy_functions as tf
 
-num_var = 1
-num_val = 4
-num_sample = 100000
-mi_factor = 0.9
-diagnosis_factor = 0.9
-source_prob_dist = "uniform"
 
-a = JointProbabilityMatrix(1, num_val, joint_probs=source_prob_dist)
-print(len(a))
+def generate_OR_transitions_table(graph, dependent_vars):
+    # ToDo: allow for more then two dependent variables
 
-b = JointProbabilityMatrix(1, num_val, joint_probs=source_prob_dist)
-tf.append_independent_variables(a, b)
+    # list of dependent vars
+    n = len(graph)
 
-tf.append_synergistic_variables(a, 1, subject_variables=[0, 1])
-print(len(a))
+    # Generate a list of lists
+    lst = [list(i) for i in itertools.product([0, 1], repeat=n)]
 
-data = a.generate_samples(1000)
-data = np.array(data)
-pd.DataFrame(data).to_csv("synergistic_interaction_example.csv")
+    # Generate XOR
+    for _, i in enumerate(lst):
+        if i[dependent_vars[0]] == i[dependent_vars[1]] == 0:
+            lst[_].append(0)
+        else:
+            lst[_].append(1)
+
+    return(lst)
+
 
 def Build_network(num_val=2, mi_factor=0.9, diagnosis_factor=0.9,
                   source_prob_dist="uniform", model_name="test"):
@@ -93,10 +93,34 @@ def Build_network(num_val=2, mi_factor=0.9, diagnosis_factor=0.9,
     tf.append_variables_using_state_transitions_table(
         a, generate_OR_transitions_table(a, dependent_vars=[7, 2]))
 
-    with open('Toy_model_disecete/toy_model'+str(model_name)+'.pickle', 'wb') as handle:
+    with open('data/Toy_model_disecete/toy_model'+str(model_name)+'.pickle', 'wb') as handle:
         pickle.dump(a, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
     return a
 
-# Constructing the network may take some time
-#Build_network()
+
+num_var = 1
+num_val = 4
+num_sample = 100000
+mi_factor = 0.9
+diagnosis_factor = 0.9
+source_prob_dist = "uniform"
+
+#####
+# Eample of network constructoin
+######
+a = JointProbabilityMatrix(1, num_val, joint_probs=source_prob_dist)
+print(len(a))
+
+b = JointProbabilityMatrix(1, num_val, joint_probs=source_prob_dist)
+tf.append_independent_variables(a, b)
+
+tf.append_synergistic_variables(a, 1, subject_variables=[0, 1])
+print(len(a))
+
+data = a.generate_samples(1000)
+data = np.array(data)
+pd.DataFrame(data).to_csv("data/synergistic_interaction_example.csv")
+
+# Constructing the larger network may take some time
+# Build_network()
