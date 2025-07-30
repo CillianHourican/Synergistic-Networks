@@ -1,12 +1,12 @@
 # Networks with Synergistic Interactions
 
 This GitHub repository contains the code for the paper "Understanding multimorbidity requires sign-disease networks and higher-order interactions, a perspective. " by Cillian Hourican, Geeske Peeters, René Melis, Thomas M. Gill, Marcel Olde Rikkert, Rick Quax.
-[link and doi to be provided]
+[[link and doi to be provided]](https://doi.org/10.3389/fsysb.2023.1155599)
 
 The data folder contains data generated from the synthetic model presented in the paper. The Construct_network.py script illustrates how such a model can be recreated, while Oinfo.py illustrates how O-information values can be computed from a dataset. Note this code only works for discrete variables. 
 
 Network construction requires the jointpdf package (https://bitbucket.org/rquax/jointpdf/src/master/).
-To ease implementation, we have provided some source files from this package. Please refer to that package for documentation. 
+To ease implementation, we have provided some source files from this package. Please refer to that package for documentation. Some functions in jointpdf/ are reproduced from jointpdf by R. Quax (original license preserved)
 
 To create a synergistic triplet with two independent nodes with uniform distributions, where each variable takes 4 possible states, we could write
 
